@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central Monitoring Server</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css"> 
+    
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Left Navigation -->
+            <nav class="col-md-3 col-lg-2 d-md-block col-sm-4 sidebar ">
+                <div class="position-sticky pt-3">
+                    <h4 class="text-center mb-4">Monitoring Server</h4>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#dashboard-overview"><i class="bi bi-speedometer2"></i> Dashboard</a>
+                        </li>
+                        
+                        <li class="nav-item dropdown">
+                            <a id="configure-toggle" class="nav-link dropdown-toggle" href="#configure" data-bs-toggle="dropdown"><i class="bi bi-gear"></i>
+                                Configure
+                            </a>
+                            <div class="configure-items"  id="configure-items">
+                                <a class="nav-link" href="#add-rec-server">Rec Server</a>
+                                <a class="nav-link" href="#nas">NAS</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#server-monitor"><i class="bi bi-eye"></i>  Monitor Streams</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#recordins-status"><i class="bi bi-circle-fill text-danger"></i> Recording Status</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#transcode"><i class="bi bi-film"></i> Transcode HUB</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#clipzone"> <i class="bi bi-scissors"></i> Clip Zone</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#settings"><i class="bi bi-gear-fill"></i> Settings</a>
+                        </li>
+                    </ul>
+                </div>
+                <div id="logout" class="logout">
+                    <ul class="nav flex-column">
+                        <li class="nav-item ">
+                            <a class="nav-link" href="#logout"><i class="bi bi-box-arrow-right"></i> Logout</a>
+                        </li> 
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 col-lg-10 main-content">
+               
+                <!-- Dashboard Section -->
+                <section id="dashboard-overview">
+                    <h2 class="mb-4">Dashboard Overview</h2>
+
+                    <div class="row g-4">
+                        <!-- Server Status Card -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card status-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Server Status</h5>
+                                    <div class="progress mb-3">
+                                        <div class="progress-bar bg-success" style="width: 85%">85% Healthy</div>
+                                    </div>
+                                    <ul class="list-group">
+                                        <li class="list-group-item d-flex justify-content-between">
+                                            Active Servers
+                                            <span class="badge bg-primary">3</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between">
+                                            Recording
+                                            <span class="badge bg-success">2</span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between">
+                                            Errors
+                                            <span class="badge bg-danger">0</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Active Recordings -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card status-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Active Recordings</h5>
+                                    <div class="list-group">
+                                        <a href="#" class="list-group-item list-group-item-action">
+                                            Stream 1 - Camera A
+                                            <span class="badge bg-success float-end">Recording</span>
+                                        </a>
+                                        <a href="#" class="list-group-item list-group-item-action">
+                                            Stream 2 - Camera B
+                                            <span class="badge bg-success float-end">Recording</span>
+                                        </a>
+                                        <a href="#" class="list-group-item list-group-item-action">
+                                            Backup Stream
+                                            <span class="badge bg-warning float-end">Paused</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- System Health -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card status-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">System Health</h5>
+                                    <div class="mb-3">
+                                        <label>CPU Usage</label>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-info" style="width: 65%">65%</div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Memory Usage</label>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-primary" style="width: 45%">45%</div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Storage</label>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-warning" style="width: 78%">78%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Add this inside your main content section -->
+                <section id="add-rec-server" class="mt-4 d-none">
+                    <div class="card shadow">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0">Add Recording Server</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="serverForm" class="needs-validation" novalidate>
+                                <div class="row g-3">
+                                    <!-- Server Nickname -->
+                                    <div class="col-md-6">
+                                        <label for="serverName" class="form-label">Server Nickname</label>
+                                        <input type="text" class="form-control" id="serverName" required>
+                                        <div class="invalid-feedback">
+                                            Please provide a server nickname.
+                                        </div>
+                                    </div>
+
+                                    <!-- Host IP Address -->
+                                    <div class="col-md-6">
+                                        <label for="hostIp" class="form-label">Host IP Address</label>
+                                        <input type="text" class="form-control" id="hostIp"
+                                            pattern="^((\d{1,3}\.){3}\d{1,3})$" required>
+                                        <div class="invalid-feedback">
+                                            Please provide a valid IPv4 address (e.g., 192.168.1.1).
+                                        </div>
+                                    </div>
+
+                                    <!-- SSH Port -->
+                                    <div class="col-md-4">
+                                        <label for="sshPort" class="form-label">SSH Port</label>
+                                        <input type="number" class="form-control" id="sshPort" min="1" max="65535"
+                                            value="22" required>
+                                        <div class="invalid-feedback">
+                                            Please provide a valid port number (1-65535).
+                                        </div>
+                                    </div>
+
+                                    <!-- Username -->
+                                    <div class="col-md-4">
+                                        <label for="username" class="form-label">SSH Username</label>
+                                        <input type="text" class="form-control" id="username" required>
+                                        <div class="invalid-feedback">
+                                            Please provide a username.
+                                        </div>
+                                    </div>
+
+                                    <!-- Password -->
+                                    <div class="col-md-4">
+                                        <label for="password" class="form-label">SSH Password</label>
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" id="password" required>
+                                            <button class="btn btn-outline-secondary" type="button"
+                                                onclick="togglePasswordVisibility()">
+                                                👁️
+                                            </button>
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            Please provide a password.
+                                        </div>
+                                    </div>
+
+                                    <!-- Connection Test -->
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="testConnection">
+                                            <label class="form-check-label" for="testConnection">
+                                                Test connection before saving
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Buttons -->
+                                <div class="mt-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="bi bi-server"></i> Add Server
+                                    </button>
+                                    <button type="reset" class="btn btn-outline-secondary">
+                                        Clear Form
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Added Servers Table -->
+                    <div class="card mt-4 shadow">
+                        <div class="card-header bg-secondary text-white">
+                            <h5 class="mb-0">Configured Servers</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover" id="serversTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Nickname</th>
+                                            <th>Host IP</th>
+                                            <th>SSH Port</th>
+                                            <th>Username</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Rows will be added dynamically -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Configuration Section (Example) -->
+                <section id="rec-server" class="d-none">
+                    <h2 class="mb-4">Recording Server Configuration</h2>
+                    <div class="card">
+                        <div class="card-body">
+                            <form>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Server IP</label>
+                                        <input type="text" class="form-control" value="192.168.1.100">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Port</label>
+                                        <input type="number" class="form-control" value="554">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Codec</label>
+                                        <select class="form-select">
+                                            <option>H.264</option>
+                                            <option>H.265</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check mt-4">
+                                            <input class="form-check-input" type="checkbox" checked>
+                                            <label class="form-check-label">Enable Backup</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary">Save Configuration</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Server Monitoring Dashboard -->
+                <section id="server-monitor" class="d-none">
+                    <ul class="nav nav-tabs mt-0" id="monitoringTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="server-monitoring-tab" data-bs-toggle="tab" href="#server-monitor" role="tab" aria-controls="server-monitoring" aria-selected="true">System Monitoring</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="multicast-ip-port-tab" data-bs-toggle="tab" href="#multicast" role="tab" aria-controls="multicast-ip-port" aria-selected="false">Multicast IP and Port</a>
+                        </li>
+                    </ul>
+                    <h4 class="mb-1 ">Server Monitoring Dashboard</h4>
+                    <div class="row g-4">
+                        <div class="card-header col-lg-12 bg-primary text-white"> System Information</div> 
+                           
+                        <!-- Host Name -->
+                        <div class="col-md-6 col-lg-3 mt-1">
+                            <div class="card status-card">
+                                <div class="card-body">
+                                    <div class="col-md-4">
+                                        <div class="metric-label">Hostname</div>
+                                        <div id="hostname">Loading...</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Host IP -->
+                        <div class="col-md-6 col-lg-3 mt-1">
+                            <div class="card status-card">
+                                <div class="card-body">
+                                    <div class="col-md-4">
+                                        <div class="metric-label">Host IP</div>
+                                        <div id="os">Loading...</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Uptime -->
+                        <div class="col-md-6 col-lg-3 mt-1">
+                            <div class="card status-card">
+                                <div class="card-body">
+                                    <div class="col-md-4">
+                                        <div class="metric-label">Uptime</div>
+                                        <div id="uptime">Loading...</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- CPU Cores -->
+                        <div class="col-md-6 col-lg-3 mt-1">
+                            <div class="card status-card">
+                                <div class="card-body">
+                                    <div class="col-md-4">
+                                        <div class="metric-label">CPUCores</div>
+                                        <div id="uptime">Loading...</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+
+
+
+
+                    <div class="row g-4 mt-1">
+                        <!-- CPU Utilization Card -->
+                        <div class="col-md-5 col-lg-5 mt-1">
+                            <div class="card">
+                                <div class="card-header bg-info text-white rounded-2">
+                                    CPU Utilization
+                                </div>
+                                <div class="card-body">
+                                    <div class="metric-label">Utilization</div>
+                                    <div class="progress">
+                                        <div id="cpu-progress"
+                                            class="progress-bar progress-bar-striped progress-bar-animated"
+                                            role="progressbar" style="width: 0%">0%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Memory Usage Card -->
+                        <div class="col-md-7 col-lg-7 mt-1">
+                            <div class="card">
+                                <div class="card-header bg-warning text-white">
+                                    Memory Usage
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="metric-label">Used Memory</div>
+                                            <div class="progress">
+                                                <div id="memory-used-progress" class="progress-bar bg-danger"
+                                                    role="progressbar" style="width: 0%">0%</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="metric-label">Available Memory</div>
+                                            <div class="progress">
+                                                <div id="memory-available-progress" class="progress-bar bg-success"
+                                                    role="progressbar" style="width: 0%">0%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Disk Usage Card -->
+                    <div class="card mt-1">
+                        <div class="card-header bg-success text-white">
+                            Disk Usage
+                        </div>
+                        <div class="card-body" id="disk-usage">
+                            <div class="metric-label">Total Space: ${data.hdd_info.total.toFixed(2)} GB</div>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: ${data.hdd_info.percent}%"
+                                    aria-valuenow="${data.hdd_info.percent}" aria-valuemin="0" aria-valuemax="100">
+                                    ${data.hdd_info.percent}%
+                                </div>
+                            </div>
+                            <div class="row g-4 mt-0.5">
+                                <div class="col-md-6 col-lg-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="col-md-4">
+                                                <div class="metric-label">Used</div>
+                                                <div class="text-danger">${data.hdd_info.used.toFixed(2)} GB</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-lg-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="col-md-4">
+                                                <div class="metric-label">Free</div>
+                                                <div class="text-success">${data.hdd_info.free.toFixed(2)} GB</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                               <!-- <div class="col-md-6 col-lg-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="col-md-4">
+                                                <div class="metric-label">Utilization</div>
+                                                <div class="text-primary">${data.hdd_info.percent}%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>-->
+                            </div>
+                        </div>
+                        </div>
+
+                        <!-- Network Interfaces Card -->
+                        <div class="card mt-2">
+                            <div class="card-header bg-secondary text-white">
+                                Network Interfaces
+                            </div>
+                            <div class="card-body" id="network-interfaces">
+                                <!-- Network interfaces will be populated here -->
+                            </div>
+                        </div>
+                    
+
+                </section>
+                <section id="multicast" class="d-none">
+                    <ul class="nav nav-tabs" id="monitoringTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="server-monitoring-tab" data-bs-toggle="tab" href="#server-monitor" role="tab" aria-controls="server-monitoring" aria-selected="true">System Monitoring</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="multicast-ip-port-tab" data-bs-toggle="tab" href="#multicast" role="tab" aria-controls="multicast-ip-port" aria-selected="false">Multicast IP and Port</a>
+                        </li>
+                    </ul>
+                    <h1 class="mb-4">Multicast IP and Port</h1>
+                    <div class="row g-4">
+                        <div class="card-header bg-secondary text-white">
+                            Network Interfaces
+                        </div>
+                        <div class="card-body" id="network-interfaces">
+                            <!-- Network interfaces will be populated here -->
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+
+
+    <!-- Bootstrap JS and Custom JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
